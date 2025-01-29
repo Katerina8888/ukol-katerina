@@ -1,5 +1,5 @@
 <template>
-  <ul class="mt-[4rem] w-full flex justify-center flex-wrap">
+  <ul class="mt-2 lg:mt-[4rem] w-full flex justify-center flex-wrap">
     <Task />
   </ul>
 </template>
