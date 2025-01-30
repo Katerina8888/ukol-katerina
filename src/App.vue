@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <TaskCreator @on-submit="addTask" />
-    <TasksWrapper :tasks="tasks" @click="removeTask" />
+    <TasksWrapper :tasks="tasks" @remove-task="removeTask" />
   </div>
 </template>
 
@@ -11,16 +11,15 @@ import TasksWrapper from './components/TasksWrapper.vue'
 import { ref } from 'vue'
 import type { Task } from './assets/types'
 
-const tasks = ref([] as Task[]) // Uchovávání seznamu úkolů
+const tasks = ref([] as Task[])
 
 const addTask = (task: Task) => {
   tasks.value.push(task)
   console.log(tasks.value)
-  // DOTAZ: JAK V KONZOLI ODSTRANIT TY PROXY, ABYCH MĚLA ROVNOU VYPSANÉ POLE?
 }
 
-const removeTask = () => {
-  // tasks.value.pop()
+const removeTask = (index: number) => {
+  tasks.value.splice(index, 1)
   console.log(tasks.value)
 }
 </script>

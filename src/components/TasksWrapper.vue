@@ -10,7 +10,7 @@
         <div class="flex justify-between">
           <div>{{ task.hours }}h</div>
           <h2 class="font-bold">{{ task.name }}</h2>
-          <ButtonRemove label="X" @click="handleClick" />
+          <ButtonRemove label="X" @click="handleClick(index)" />
         </div>
 
         <div class="text-center">{{ task.date }}</div>
@@ -28,11 +28,9 @@ defineProps<{
   tasks: Task[]
 }>()
 
-const emit = defineEmits<{
-  (e: 'click'): void
-}>()
+const emit = defineEmits(['remove-task'])
 
-const handleClick = () => {
-  emit('click') // Emitování kliknutí
+const handleClick = (index: number) => {
+  emit('remove-task', index) // Emitování kliknutí
 }
 </script>
