@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex mx-auto md:mt-8 lg:mt-[8rem] justify-center text-center flex-col w-full md:w-1/2 lg:w-1/4 bg-[#FCC6FF] font-bold py-8 rounded-md"
+    class="flex mx-auto md:mt-8 lg:mt-[8rem] justify-center text-center flex-col w-full md:w-1/2 lg:w-1/4 bg-katerina-600 font-bold py-8 rounded-md"
   >
     <h1>Task Manager</h1>
 
@@ -37,6 +37,7 @@ const formRef = ref<HTMLFormElement | null>(null) // Reference na form
 
 const emit = defineEmits<{
   (e: 'on-submit', task: Task): void
+  (e: 'toggle-image'): void
 }>()
 
 const handleTaskInput = (input: string) => {
@@ -53,12 +54,13 @@ const handleSubmit = () => {
     return
   }
 
-  // DOTAZ: tento on-submit nemusí být nikde zavolaný, protože je to ta metoda, která se volá automaticky při submitu formuláře?
   emit('on-submit', {
     name: taskInput.value,
     hours: taskHours.value,
     date: new Date().toLocaleDateString(),
   })
+
+  emit('toggle-image')
 
   formRef.value?.reset()
   taskInput.value = ''

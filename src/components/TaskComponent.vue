@@ -1,6 +1,6 @@
 <template>
   <li class="flex w-full md:w-1/2 lg:w-1/3 flex-col my-4">
-    <div class="w-5/6 md:w-1/2 bg-[#FCC6FF] mx-auto rounded-md p-2">
+    <div class="w-5/6 md:w-1/2 bg-katerina-600 mx-auto rounded-md p-2">
       <div class="flex justify-between">
         <div>{{ task.hours }}h</div>
         <h2 class="font-bold">{{ task.name }}</h2>
