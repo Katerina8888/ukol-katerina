@@ -2,25 +2,66 @@
   <div
     class="flex mx-auto md:mt-8 lg:mt-[8rem] justify-center text-center flex-col w-full md:w-1/2 lg:w-1/4 bg-[#FCC6FF] font-bold py-8 rounded-md"
   >
-    <!-- <form @submit.prevent="onSubmit"> -->
     <h1>Task Manager</h1>
 
-    <form class="relative flex flex-col">
-      <Input />
-      <InputNumber />
-      <Button>x</Button>
+    <form ref="formRef" @submit.prevent="handleSubmit" class="relative flex flex-col">
+      <InputComponent
+        id="taskName"
+        label="Task name"
+        :value="taskInput"
+        @input-changed="handleTaskInput"
+      />
+      <InputComponent
+        id="taskHours"
+        type="number"
+        label="Hours to complete"
+        :min="1"
+        placeholder="1"
+        :value="taskHours"
+        @input-changed="handleTaskHours"
+      />
+      <ButtonAdd />
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import Input from './Input.vue'
-import InputNumber from './InputNumber.vue'
-import Button from './Button.vue'
-</script>
+import { ref } from 'vue'
+import ButtonAdd from './ButtonAdd.vue'
+import InputComponent from './InputComponent.vue'
+import type { Task } from '../assets/types'
 
-<style>
-.sr-only {
-  clip: rect(0, 0, 0, 0);
+const taskInput = ref('')
+const taskHours = ref(1)
+const formRef = ref<HTMLFormElement | null>(null) // Reference na form
+
+const emit = defineEmits<{
+  (e: 'on-submit', task: Task): void
+}>()
+
+const handleTaskInput = (input: string) => {
+  taskInput.value = input
 }
-</style>
+
+const handleTaskHours = (input: string) => {
+  taskHours.value = Number(input) || 1
+}
+
+const handleSubmit = () => {
+  if (taskInput.value.trim() === '') {
+    alert('Please enter a valid task name and hours.')
+    return
+  }
+
+  // DOTAZ: tento on-submit nemusí být nikde zavolaný, protože je to ta metoda, která se volá automaticky při submitu formuláře?
+  emit('on-submit', {
+    name: taskInput.value,
+    hours: taskHours.value,
+    date: new Date().toLocaleDateString(),
+  })
+
+  formRef.value?.reset()
+  taskInput.value = ''
+  taskHours.value = 1
+}
+</script>
