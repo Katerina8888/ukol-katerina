@@ -1,14 +1,14 @@
 <template>
   <div id="app" class="relative">
     <TaskCreator @on-submit="addTask" @toggle-image="toggleImage" />
-    <TasksWrapper :tasks="tasks" @remove-task="removeTask" />
+    <TasksList :tasks="tasks" @remove-task="removeTask" />
     <CatImages :showFirstImage="showFirstImage" />
   </div>
 </template>
 
 <script setup lang="ts">
 import TaskCreator from './components/TaskCreator.vue'
-import TasksWrapper from './components/TasksWrapper.vue'
+import TasksList from './components/TasksList.vue'
 import CatImages from './components/CatImages.vue'
 import { ref } from 'vue'
 import type { Task } from './assets/types'
